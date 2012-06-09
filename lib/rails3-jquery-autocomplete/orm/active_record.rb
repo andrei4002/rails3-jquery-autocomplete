@@ -16,6 +16,7 @@ module Rails3JQueryAutocomplete
         scopes  = Array(options[:scopes])
         where   = options[:where]
         joins   = options[:joins]
+        distinct= options[:distinct]
         limit   = get_autocomplete_limit(options)
         order   = get_autocomplete_order(method, options, model)
 
@@ -30,6 +31,7 @@ module Rails3JQueryAutocomplete
             limit(limit).order(order)
         items = items.where(where) unless where.blank?
 
+        items = items.uniq if distinct == true
         items
       end
 
